@@ -23,7 +23,6 @@ typedef enum {
     IS_COUNTING_DOWN        =   0x01U
 } CountingDirectionTypeDef;
 
-static HardwareTimer *Encoder;
 
 /* Class --------------------------------------------------------*/
 class STM32_QuadEncoder {
@@ -49,6 +48,7 @@ class STM32_QuadEncoder {
         uint32_t globalPinA;
         uint32_t globalPinB;
         TIM_TypeDef *timerInstance;
+         HardwareTimer *encoder;
 };
 
 #endif
