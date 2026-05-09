@@ -18,7 +18,11 @@ STM32_QuadEncoder::~STM32_QuadEncoder() {
     pinMode(globalPinA, INPUT);  // reset channel A to INPUT
     pinMode(globalPinB, INPUT);  // reset channel B to INPUT
     timerInstance = nullptr;
-    encoder = nullptr;
+
+    if (encoder != nullptr) {
+        delete encoder;
+        encoder = nullptr;
+    }
 }
 
 void STM32_QuadEncoder::begin(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef channelPullUp, unsigned long pulsePerRotation, DirectionTypeDef direction) {
