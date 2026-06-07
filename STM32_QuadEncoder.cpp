@@ -6,8 +6,8 @@ STM32_QuadEncoder::STM32_QuadEncoder() {
 }
 
 
-STM32_QuadEncoder::STM32_QuadEncoder(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef channelPullUp, unsigned long pulsePerRotation, DirectionTypeDef direction) {
-    begin(pinA, pinB, channelPullUp, pulsePerRotation, direction);
+STM32_QuadEncoder::STM32_QuadEncoder(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef channelPullUp, unsigned long pulsePerRotation, DirectionTypeDef direction, uint32_t prescaler) {
+    begin(pinA, pinB, channelPullUp, pulsePerRotation, direction, prescaler);
 }
 
 STM32_QuadEncoder::~STM32_QuadEncoder() {
@@ -25,7 +25,7 @@ STM32_QuadEncoder::~STM32_QuadEncoder() {
     }
 }
 
-void STM32_QuadEncoder::begin(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef channelPullUp, unsigned long pulsePerRotation, DirectionTypeDef direction) {
+void STM32_QuadEncoder::begin(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef channelPullUp, unsigned long pulsePerRotation, DirectionTypeDef direction, uint32_t prescaler) {
     // get timer instance to be referenced upon based on encoder input pin
     timerInstance  = (TIM_TypeDef *)pinmap_peripheral(digitalPinToPinName(pinA), PinMap_PWM);
     
@@ -85,8 +85,8 @@ void STM32_QuadEncoder::begin(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef
     // set timer SMCR register to encoder mode (SMS = 011)
     timerInstance->SMCR |= TIM_ENCODERMODE_TI12;
 
-    // set prescaler divide by 4, so that quadrature encoder incremented by one if there are total of 4 clocks from either pinA or pinB
-    encoder->setPrescaleFactor(4);
+    // set prescaler, so that quadrature encoder incremented by one if there are total of 4 clocks from either pinA or pinB
+    encoder->setPrescaleFactor(prescaler);
 
     // set overflow enable
 	encoder->setPreloadEnable(true);

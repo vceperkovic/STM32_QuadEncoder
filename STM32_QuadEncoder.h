@@ -28,9 +28,9 @@ typedef enum {
 class STM32_QuadEncoder {
     public:
         STM32_QuadEncoder();    // constructor
-        STM32_QuadEncoder(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef channel, unsigned long pulsePerRotation, DirectionTypeDef direction);
+        STM32_QuadEncoder(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef channel, unsigned long pulsePerRotation, DirectionTypeDef direction, uint32_t prescaler = 4);
         ~STM32_QuadEncoder();   // destructor
-        void begin(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef channel, unsigned long pulsePerRotation, DirectionTypeDef direction); // Setup, only needed if no instance was passed to the constructor
+        void begin(uint32_t pinA, uint32_t pinB, ChannelPullUpTypeDef channel, unsigned long pulsePerRotation, DirectionTypeDef direction, uint32_t prescaler = 4); // Setup, only needed if no instance was passed to the constructor
         unsigned long getCount();   // get encoder value
         void resetCount();          // set encoder value to zero
         void setCount(unsigned long value); // set encoder value
